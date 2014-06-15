@@ -12,24 +12,25 @@ public class Server {
 
 	public static void main(String[] args) throws Exception {
 		DatagramSocket serverSocket = new DatagramSocket(PORT);
-		byte[] receiveData = new byte[PACKET_SIZE];
+//		byte[] receiveData = new byte[PACKET_SIZE];
 		byte[] sendData = new byte[PACKET_SIZE];
 
-		while (true) {
-			DatagramPacket receivePacket = new DatagramPacket(receiveData,
-					receiveData.length);
-			serverSocket.receive(receivePacket);
-			String sentence = new String(receivePacket.getData());
-			InetAddress iPAddress = receivePacket.getAddress();
-
-			int port = receivePacket.getPort();
-			String capitalizedSentence = sentence.toUpperCase();
-			sendData = capitalizedSentence.getBytes();
-
-			DatagramPacket sendPacket = new DatagramPacket(sendData,
-					sendData.length, iPAddress, port);
-			serverSocket.send(sendPacket);
-		}
+//		while (true) {
+//			DatagramPacket receivePacket = new DatagramPacket(receiveData,
+//					receiveData.length);
+//			serverSocket.receive(receivePacket);
+//			String sentence = new String(receivePacket.getData());
+//			InetAddress iPAddress = receivePacket.getAddress();
+//
+//			int port = receivePacket.getPort();
+//			String capitalizedSentence = sentence.toUpperCase();
+//			sendData = capitalizedSentence.getBytes();
+//
+//			DatagramPacket sendPacket = new DatagramPacket(sendData,
+//					sendData.length, iPAddress, port);
+//			serverSocket.send(sendPacket);
+//		}
+		serverSocket.close();
 	}
 
 }
