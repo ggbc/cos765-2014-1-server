@@ -50,9 +50,8 @@ public class Server {
 									// (tamanho máximo de arquivo: 19MB)
 					bytesRead = bis.read(sendData, 0, PACKET_SIZE);
 
-					// System.out.println((new Date()).getTime());
-					Thread.sleep(20);
-					// System.out.println((new Date()).getTime());
+					// Delay na transmissão
+					Thread.sleep(TRANSMISSION_TIME);
 
 					// Enviar os dados
 					DatagramPacket sendPacket = new DatagramPacket(sendData,
