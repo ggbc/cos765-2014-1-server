@@ -35,19 +35,20 @@ public class Server {
 													// do arquivo com duas
 													// barras /!
 
+
 			InetAddress iPAddress = receivePacket.getAddress();
 			int port = receivePacket.getPort();
 
 			try {
 				ByteArrayInputStream bis = new ByteArrayInputStream(
-						FileUtils.readFileToByteArray(new File(
-								"D:\\setor\\abc.txt")));
+						FileUtils.readFileToByteArray(new File("C:\\test.txt")));
 
 				while (bytesRead != -1) {
 					sendData = new byte[PACKET_SIZE];
 					sendData[0]++; // campo PackNumber para reordenação no host
 									// destino. São permitidos até 127 pacotes
 									// (tamanho máximo de arquivo: 19MB)
+
 					bytesRead = bis.read(sendData, 0, PACKET_SIZE);
 
 					// Delay na transmissão
