@@ -8,8 +8,12 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.Date;
+
+import javax.swing.plaf.SliderUI;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 public class Server {
 
@@ -29,6 +33,7 @@ public class Server {
 			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);						
 			serverSocket.receive(receivePacket); // recebe nome da fonte de dados (arquivo)		
 			fileName = new String(receivePacket.getData());
+			fileName = "C://" + fileName; // VER ISSO DEPOIS. Não estou conseguindo mandar o nome do arquivo com duas barras /!
 
 			InetAddress iPAddress = receivePacket.getAddress();				
 			int port = receivePacket.getPort();
@@ -40,14 +45,20 @@ public class Server {
 				
 				while (bytesRead != -1) {
 					sendData = new byte[PACKET_SIZE];
+					sendData[0]++; // campo PackNumber para reordenação no host destino 
 					bytesRead = bis.read(sendData, 0, PACKET_SIZE);
+					
+//					System.out.println((new Date()).getTime());
+					Thread.sleep(20);
+//					System.out.println((new Date()).getTime());					
+					
 					// Enviar os dados
 					DatagramPacket sendPacket = new DatagramPacket(sendData,
 							sendData.length, iPAddress, port);
 					serverSocket.send(sendPacket);
 				}					
 			}
-			catch (Exception e)
+			catch (IOException e)
 			{
 				e.printStackTrace();
 			}		
