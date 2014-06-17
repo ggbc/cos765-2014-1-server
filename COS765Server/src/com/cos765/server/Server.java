@@ -23,6 +23,7 @@ public class Server {
 		byte[] sendData = new byte[PACKET_SIZE]; // o conteúdo do arquivo a ser
 													// enviado para o cliente
 		String fileName;
+		
 
 		while (true) {
 			DatagramPacket receivePacket = new DatagramPacket(receiveData,
