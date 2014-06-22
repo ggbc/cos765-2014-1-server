@@ -10,15 +10,13 @@ import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
 
+import com.cos765.common.Common;
 import com.cos765.common.Segment;
 
 public class Server {
 
-	public static int TRANSMISSION_TIME = 20; // 20ms entre pacotes
-	private static int PORT = 15000;
-
 	public static void main(String[] args) throws Exception {
-		DatagramSocket serverSocket = new DatagramSocket(PORT);
+		DatagramSocket serverSocket = new DatagramSocket(Common.SERVER_PORT);
 		int bytesRead = 0;
 		byte[] receiveData = new byte[Segment.PAYLOAD_SIZE + Segment.HEADER_SIZE]; // o nome do
 																	// arquivo
@@ -52,7 +50,7 @@ public class Server {
 					bytesRead = bis.read(sendData, 1, Segment.PAYLOAD_SIZE);
 
 					// Delay na transmissão
-					Thread.sleep(TRANSMISSION_TIME);
+					Thread.sleep(Common.TRANSMISSION_TIME);
 
 					// Enviar os dados
 					DatagramPacket sendPacket = new DatagramPacket(sendData,
