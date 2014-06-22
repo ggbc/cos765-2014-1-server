@@ -14,15 +14,19 @@ import com.cos765.common.Common;
 import com.cos765.common.Segment;
 
 public class Server {
-
+	
 	public static void main(String[] args) throws Exception {
+
 		DatagramSocket serverSocket = new DatagramSocket(Common.SERVER_PORT);
 		int bytesRead = 0;
-		byte[] receiveData = new byte[Segment.PAYLOAD_SIZE + Segment.HEADER_SIZE]; // o nome do
-																	// arquivo
+		byte[] receiveData = new byte[Segment.PAYLOAD_SIZE
+				+ Segment.HEADER_SIZE]; // o nome do
+		// arquivo
 		// desejado pelo cliente
-		byte[] sendData = new byte[Segment.PAYLOAD_SIZE + Segment.HEADER_SIZE]; // o conteúdo do
-																// arquivo a ser
+		byte[] sendData = new byte[Segment.PAYLOAD_SIZE + Segment.HEADER_SIZE]; // o
+																				// conteúdo
+																				// do
+		// arquivo a ser
 		// enviado para o cliente
 		String receivedFileName;
 
@@ -33,8 +37,9 @@ public class Server {
 				serverSocket.receive(receivePacket); // recebe nome da fonte de
 														// dados (arquivo)
 				receivedFileName = new String(receivePacket.getData());
-				receivedFileName = "D://Setor//" + receivedFileName; 
-				// TODO: Não estou conseguindo mandar o nome do arquivo com duas barras /!
+				receivedFileName = "D://Setor//" + receivedFileName;
+				// TODO: Não estou conseguindo mandar o nome do arquivo com duas
+				// barras /!
 
 				InetAddress iPAddress = receivePacket.getAddress();
 				int port = receivePacket.getPort();
@@ -48,7 +53,7 @@ public class Server {
 
 					sendData[0]++;
 					bytesRead = bis.read(sendData, 1, Segment.PAYLOAD_SIZE);
-
+				
 					// Delay na transmissão
 					Thread.sleep(Common.TRANSMISSION_TIME);
 
@@ -65,3 +70,4 @@ public class Server {
 		}
 	}
 }
+	
