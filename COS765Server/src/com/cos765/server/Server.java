@@ -10,20 +10,20 @@ import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
 
+import com.cos765.common.Segment;
+
 public class Server {
 
 	public static int TRANSMISSION_TIME = 20; // 20ms entre pacotes
 	private static int PORT = 15000;
-	private static int PAYLOAD_SIZE = 160; // 160 bytes no payload por pacote
-	private static int HEADER_SIZE = 1; // 1 byte no cabeçalho por pacote
 
 	public static void main(String[] args) throws Exception {
 		DatagramSocket serverSocket = new DatagramSocket(PORT);
 		int bytesRead = 0;
-		byte[] receiveData = new byte[PAYLOAD_SIZE + HEADER_SIZE]; // o nome do
+		byte[] receiveData = new byte[Segment.PAYLOAD_SIZE + Segment.HEADER_SIZE]; // o nome do
 																	// arquivo
 		// desejado pelo cliente
-		byte[] sendData = new byte[PAYLOAD_SIZE + HEADER_SIZE]; // o conteúdo do
+		byte[] sendData = new byte[Segment.PAYLOAD_SIZE + Segment.HEADER_SIZE]; // o conteúdo do
 																// arquivo a ser
 		// enviado para o cliente
 		String receivedFileName;
@@ -49,7 +49,7 @@ public class Server {
 					Arrays.fill(sendData, zero);
 
 					sendData[0]++;
-					bytesRead = bis.read(sendData, 1, PAYLOAD_SIZE);
+					bytesRead = bis.read(sendData, 1, Segment.PAYLOAD_SIZE);
 
 					// Delay na transmissão
 					Thread.sleep(TRANSMISSION_TIME);
