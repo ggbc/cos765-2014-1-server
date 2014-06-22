@@ -36,7 +36,7 @@ public class Server {
 														// dados (arquivo)
 				receivedFileName = new String(receivePacket.getData());
 				receivedFileName = "D://Setor//" + receivedFileName; 
-				// VER ISSO DEPOIS. Não estou conseguindo mandar o nome do arquivo com duas barras /!
+				// TODO: Não estou conseguindo mandar o nome do arquivo com duas barras /!
 
 				InetAddress iPAddress = receivePacket.getAddress();
 				int port = receivePacket.getPort();
