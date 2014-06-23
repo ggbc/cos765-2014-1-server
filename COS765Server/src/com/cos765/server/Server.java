@@ -29,6 +29,7 @@ public class Server {
 		// arquivo a ser
 		// enviado para o cliente
 		String receivedFileName;
+		int sendOrder = 0;
 
 		try {
 			while (true) {
@@ -51,7 +52,7 @@ public class Server {
 					byte zero = 0;
 					Arrays.fill(sendData, zero);
 
-					sendData[0]++;
+					sendData[0] = (byte)++sendOrder;
 					bytesRead = bis.read(sendData, 1, Segment.PAYLOAD_SIZE);
 				
 					// Delay na transmissão
