@@ -46,7 +46,8 @@ public class Server {
 				int port = receivePacket.getPort();
 
 				ByteArrayInputStream bis = new ByteArrayInputStream(
-						FileUtils.readFileToByteArray(new File("C:\\test.txt")));
+//						FileUtils.readFileToByteArray(new File("C:\\test.txt")));
+				FileUtils.readFileToByteArray(new File("D:\\setor\\test.txt")));
 
 				while (bytesRead != -1) {
 					byte zero = 0;
