@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
@@ -29,7 +30,7 @@ public class Server {
 		// arquivo a ser
 		// enviado para o cliente
 		String receivedFileName;
-		int sendOrder = 0;
+		int sequenceNumber = 0;
 
 		try {
 			while (true) {
@@ -45,24 +46,31 @@ public class Server {
 				InetAddress iPAddress = receivePacket.getAddress();
 				int port = receivePacket.getPort();
 
-				ByteArrayInputStream bis = new ByteArrayInputStream(
-//						FileUtils.readFileToByteArray(new File("C:\\test.txt")));
-				FileUtils.readFileToByteArray(new File("D:\\setor\\test.txt")));
-
+				ByteArrayInputStream byteStream = new ByteArrayInputStream(
+						FileUtils.readFileToByteArray(new File("C:\\test.txt")));
+//				FileUtils.readFileToByteArray(new File("D:\\setor\\test.txt")));
+				
 				while (bytesRead != -1) {
 					byte zero = 0;
 					Arrays.fill(sendData, zero);
-
-					sendData[0] = (byte)++sendOrder;
-					bytesRead = bis.read(sendData, 1, Segment.PAYLOAD_SIZE);
+					
+					sequenceNumber++;
+					
+					ByteBuffer bb = ByteBuffer.allocate(Segment.HEADER_SIZE);
+					bb.putInt(sequenceNumber);					
+					
+					ByteArrayInputStream sequenceNumberStream = new ByteArrayInputStream(bb.array());
+					sequenceNumberStream.read(sendData, 0, Segment.HEADER_SIZE); // copiar para dentro do sendData o cabeçalho com o sequencenumber (4 bytes)
+					
+					bytesRead = byteStream.read(sendData, Segment.HEADER_SIZE, Segment.PAYLOAD_SIZE);
 				
-					// Delay na transmissão
-					Thread.sleep(Common.TRANSMISSION_TIME);
-
 					// Enviar os dados
 					DatagramPacket sendPacket = new DatagramPacket(sendData,
 							sendData.length, iPAddress, port);
 					serverSocket.send(sendPacket);
+					
+					// Delay na transmissão
+					Thread.sleep(Common.TRANSMISSION_TIME);					
 				}
 			}
 		} catch (IOException e) {
