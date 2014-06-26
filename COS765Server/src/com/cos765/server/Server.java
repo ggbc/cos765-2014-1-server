@@ -63,7 +63,7 @@ public class Server {
 					sequenceNumberStream.read(sendData, 0, Segment.HEADER_SIZE); // copiar para dentro do sendData o cabeçalho com o sequencenumber (4 bytes)
 					
 					bytesRead = byteStream.read(sendData, Segment.HEADER_SIZE, Segment.PAYLOAD_SIZE);
-				
+										
 					// Enviar os dados
 					DatagramPacket sendPacket = new DatagramPacket(sendData,
 							sendData.length, iPAddress, port);
@@ -71,7 +71,7 @@ public class Server {
 					
 					// Delay na transmissão
 					Thread.sleep(Common.TRANSMISSION_TIME);					
-				}
+				}				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
