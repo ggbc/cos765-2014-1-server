@@ -48,7 +48,6 @@ public class Server {
 
 				ByteArrayInputStream byteStream = new ByteArrayInputStream(
 						FileUtils.readFileToByteArray(new File("C:\\test.txt")));
-//				FileUtils.readFileToByteArray(new File("D:\\setor\\test.txt")));
 				
 				while (bytesRead != -1) {
 					byte zero = 0;
@@ -70,7 +69,7 @@ public class Server {
 					serverSocket.send(sendPacket);
 					
 					// Delay na transmissão
-					Thread.sleep(Common.TRANSMISSION_TIME);					
+					Thread.sleep(Common.SLEEP_TIME);					
 				}				
 			}
 		} catch (IOException e) {
